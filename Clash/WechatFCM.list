@@ -1,0 +1,5 @@
+# 为Play版Wechat准备的FCM推送分流
+
+DOMAIN-SUFFIX,short.weixin.qq.com
+DOMAIN-SUFFIX,dns.weixin.qq.com
+DOMAIN-SUFFIX,long.weixin.qq.com
