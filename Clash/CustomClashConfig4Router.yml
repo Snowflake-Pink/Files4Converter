@@ -69,11 +69,11 @@ dns:
   proxy-server-nameserver:
     - 223.5.5.5
   nameserver-policy:
-    "geosite:cn,private,games-cn":
+    "geosite:cn,private":
       - 127.0.0.1:6053
       # - https://doh.pub/dns-query
       # - https://dns.alidns.com/dns-query
-    "geosite:!cn,!private,!games-cn":
+    "geosite:!cn,!private":
       - 127.0.0.1:6553
       # - "tls://dns.google"
       # - "tls://cloudflare-dns.com"
