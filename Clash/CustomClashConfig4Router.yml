@@ -81,7 +81,7 @@ dns:
 geodata-mode: true 
 geox-url:
   geoip: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo/geoip.dat"
-  geosite: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo/geosite-all.dat"
+  geosite: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo/geosite.dat"
   mmdb: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo/Country.mmdb"
   asn: "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
 
