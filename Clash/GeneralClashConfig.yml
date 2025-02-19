@@ -69,12 +69,12 @@ dns:
     # - 'tls://[2001:4860:4860::8844]#dns'
     # - 'tls://[2606:4700:4700::1001]#dns'
   proxy-server-nameserver:
-    - https://doh.pub/dns-query
+    - 223.5.5.5
   nameserver-policy:
     "geosite:cn,private,games-cn":
       - https://doh.pub/dns-query
       - https://dns.alidns.com/dns-query
-    "geosite:!cn,!private,!games-cn":   
+    "geosite:!cn,!private,!games-cn":
       - "tls://dns.google"
       - "tls://cloudflare-dns.com"
 
