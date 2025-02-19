@@ -78,6 +78,13 @@ dns:
       # - "tls://dns.google"
       # - "tls://cloudflare-dns.com"
 
+geodata-mode: true 
+geox-url:
+  geoip: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo/geoip.dat"
+  geosite: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo/geosite-all.dat"
+  mmdb: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo/Country.mmdb"
+  asn: "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
+
 # 代理组
 # 下面这3个不要引到订阅里去 要不会出错
 # Will be ignored after profile selection
