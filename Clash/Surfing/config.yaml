@@ -4,19 +4,17 @@ tproxy-port: 1536
 allow-lan: true
 mode: Rule
 geodata-mode: true
-geodata-loader: standard
 unified-delay: true
 log-level: silent
-ipv6: true
 external-controller: 0.0.0.0:9090
 
 #面板默认Meta 可选Yacd 清除浏览器缓存即可重新加载
-external-ui: ./dashboard/Meta #Yacd
+external-ui: /data/adb/box_bll/panel/Meta/ #Yacd
 secret: ""
 
 tcp-concurrent: true
 enable-process: true
-find-process-mode: strict
+find-process-mode: always
 global-client-fingerprint: chrome
 
 #####################
@@ -26,9 +24,10 @@ global-client-fingerprint: chrome
 geo-auto-update: true
 geo-update-interval: 24
 geox-url:
-  geoip: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
-  geosite: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
-  mmdb: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/country.mmdb"
+  geoip: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo/geoip.dat"
+  geosite: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo/geosite-all.dat"
+  mmdb: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo/Country.mmdb"
+  ASN.mmdb: "https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
 
 profile:
   store-selected: true
@@ -42,7 +41,6 @@ sniffer:
   sniff:
     HTTP:
       ports: [80, 8080-8880]
-      override-destination: true
     TLS:
       ports: [443, 8443]
     QUIC:
@@ -53,20 +51,38 @@ sniffer:
     - "Mijia Cloud"
 
 tun:
-  enable: false
-  device: tun0
-  stack: system
+  enable: true #true 开 #false 关
+  device: meta
+  stack: gvisor
   dns-hijack:
-    - "any:53"
-    - "tcp://any:53"
+    - any:53
+    - tcp://any:53
+  udp-timeout: 300
   auto-route: true
+  strict-route: true
+  auto-redirect: false
   auto-detect-interface: true
-  
+  route-exclude-address:
+  - 192.168.0.0/16
+  - fc00::/7
+  exclude-package:
+  - android.media
+  - com.tencent.mm
+  - com.miui.weather2
+  - com.ctl.student
+  - com.sdu.didi.psnger
+  - com.pingan.paces.ccms
+  - com.coolapk.market
+  - com.xiaomi.market
+  - com.miui.voiceassist
+  - tv.danmaku.bili
+  - com.guozhigq.pilipala
+    
 dns:
   enable: true
   prefer-h3: true
-  listen: 0.0.0.0:1053
   ipv6: true
+  listen: 0.0.0.0:1053
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.0/15
   fake-ip-filter:
@@ -74,11 +90,28 @@ dns:
     - "+.lan"
     - "connect.rom.miui.com"
     - "localhost.ptlogin2.qq.com"
- 
+    - "+.market.xiaomi.com"
+  direct-nameserver:
+    - 119.29.29.29
+    - 1.12.12.12
+    - 223.5.5.5
+    - 223.6.6.6
+  proxy-server-nameserver:
+    - 119.29.29.29
+    - 1.12.12.12
+    - 223.5.5.5
+    - 223.6.6.6
+  nameserver-policy:
+    "RULE-SET:UnBan,GoogleCN,ChinaDomain,ChinaCompanyIp,Download":
+      - https://doh.pub/dns-query#🎯 全球直连
+      - https://dns.alidns.com/dns-query#🎯 全球直连
+    "geosite:cn,private":
+      - https://doh.pub/dns-query#🎯 全球直连
+      - https://dns.alidns.com/dns-query#🎯 全球直连
   nameserver:
-    - "https://doh.pub/dns-query"
-    - "https://dns.alidns.com/dns-query"
-
+    - https://dns.google/dns-query#🚀 节点选择
+    - https://cloudflare-dns.com/dns-query#🚀 节点选择
+    
 p: &p
   {type: http, url: "Your Clash Subscribe Link", interval: 21600, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
 
@@ -122,6 +155,8 @@ proxy-groups:
   - {name: ♻️ 自动选择, type: url-test, url: http://www.gstatic.com/generate_204, interval: 300, tolerance: 500, use: [All]}
   - {name: 📲 Telegram, type: select, proxies: [🚀 节点选择, ♻️ 自动选择, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🚀 手动切换, DIRECT]}
   - {name: 💬 OpenAI, type: select, proxies: [🚀 节点选择, ♻️ 自动选择, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🚀 手动切换, DIRECT]}
+  - {name: 💬 Claude, type: select, proxies: [🚀 节点选择, ♻️ 自动选择, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🚀 手动切换, DIRECT]}
+  - {name: 💬 Gemini, type: select, proxies: [🚀 节点选择, ♻️ 自动选择, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🚀 手动切换, DIRECT]}
   - {name: 📹 YouTube, type: select, proxies: [🚀 节点选择, ♻️ 自动选择, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🚀 手动切换, DIRECT]}
   - {name: 🎥 Netflix, type: select, proxies: [🚀 节点选择, ♻️ 自动选择, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🚀 手动切换, DIRECT]}
   - {name: 📺 巴哈姆特, type: select, proxies: [🇨🇳 台湾节点, 🚀 节点选择, 🚀 手动切换, DIRECT]}
@@ -205,6 +240,14 @@ rule-providers:
     <<: *RuleDefault
     path: ./rule/OpenAi.list
     url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/OpenAi.list"
+  Claude:
+    <<: *RuleDefault
+    path: ./rule/Claude.list
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Claude.list"
+  Gemini:
+    <<: *RuleDefault
+    path: ./rule/Gemini.list
+    url: "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Gemini.list"
   NetEaseMusic:
     <<: *RuleDefault
     path: ./rule/NetEaseMusic.list
@@ -294,6 +337,8 @@ rules:
   - RULE-SET,Apple,🍎 苹果服务
   - RULE-SET,Telegram,📲 Telegram
   - RULE-SET,OpenAi,💬 OpenAI
+  - RULE-SET,Claude,💬 Claude
+  - RULE-SET,Gemini,💬 Gemini
   - RULE-SET,NetEaseMusic,🎶 网易音乐
   - RULE-SET,Epic,🎮 游戏平台
   - RULE-SET,Origin,🎮 游戏平台
@@ -316,5 +361,3 @@ rules:
   - GEOIP,private,🎯 全球直连,no-resolve
   - GEOIP,CN,🎯 全球直连,no-resolve
   - MATCH,🐟 漏网之鱼
-
-# Good Luck
