@@ -67,8 +67,9 @@ dns:
     # - 'tls://[2001:4860:4860::8844]#dns'
     # - 'tls://[2606:4700:4700::1001]#dns'
   proxy-server-nameserver:
-    - 223.5.5.5
-  nameserver-policy:
+    - https://dns.alidns.com/dns-query
+    # - 223.5.5.5
+  nameserver-policy:  
     "geosite:cn,private,games-cn":
       - 127.0.0.1:6053
       # - https://doh.pub/dns-query
