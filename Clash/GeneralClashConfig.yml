@@ -52,7 +52,7 @@ dns:
   # 路由器个人建议使用 redir-host 以最佳兼容性
   # 其他设备可以使用 fake-ip
   enhanced-mode: fake-ip
-  fake-ip-range: 28.0.0.1/8
+  fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
     - '*'
     - '+.lan'
