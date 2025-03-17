@@ -74,8 +74,8 @@ dns:
       - https://doh.pub/dns-query
       - https://dns.alidns.com/dns-query
     "geosite:!cn,!private":
-      - "tls://dns.google"
-      - "tls://cloudflare-dns.com"
+      - https://dns.google/dns-query
+      - https://dns.cloudflare.com/dns-query
 
 geodata-mode: true 
 geox-url:
