@@ -1,0 +1,2 @@
+DOMAIN-REGEX,^.*\\.adobe\\.io$,REJECT-DROP
+DOMAIN-REGEX,^.*\\.adobestats\\.io$,REJECT-DROP
